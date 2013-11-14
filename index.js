@@ -1,8 +1,9 @@
 var request = require('request-json'),
     config = require('./config.js'),
+    replicate = config.couchdb.replicate,
     local = request.newClient(config.couchdb.uri),
-    remote = request.newClient(config.couchdb.replicate["source"]),
-    frequency = config.sizeFrequencyInSeconds,
+    remote = request.newClient(replicate["source"]),
+    frequency = config.checkFrequencyInSeconds,
     followup = config.followupFrequencyInHours;
 
 function getLocalDiskSize(cb){
@@ -11,6 +12,12 @@ function getLocalDiskSize(cb){
 
 function getRemoteDiskSize(cb){
   remote.get('', function(e,r,b) { cb(b.disk_size) })
+}
+
+function retriggerReplication(cb) {
+  local.post('/_replicate', replicate, function(e,r,b) {
+    console.log("Retriggered replication");
+  });
 }
 
 function main() {
@@ -30,9 +37,13 @@ function main() {
               clearInterval(checkInterval);
               setTimeout(main, followup*3600000);
             } else {
-              triggerReplication()
+              console.log("Replication has stalled");
+              retriggerReplication();
             }
           })
+        } else {
+          var diff = Math.ceil((currentSize - lastDiskSize) / 1024 / 1024);
+          console.log("Size increased by "+diff+" MB.");
         }
         lastDiskSize = currentSize;
       })

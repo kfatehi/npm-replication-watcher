@@ -8,6 +8,6 @@ module.exports = {
       "create_target":true
     }
   },
-  sizeFrequencyInSeconds: 1,
+  checkFrequencyInSeconds: 5,
   followupFrequencyInHours: 24,
 }
