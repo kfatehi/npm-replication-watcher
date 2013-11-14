@@ -10,4 +10,5 @@ module.exports = {
   },
   checkFrequencyInSeconds: 5,
   followupFrequencyInHours: 24,
+  waitTimeAfterRetriggerInSeconds: 30
 }

@@ -4,7 +4,8 @@ var request = require('request-json'),
     local = request.newClient(config.couchdb.uri),
     remote = request.newClient(replicate["source"]),
     frequency = config.checkFrequencyInSeconds,
-    followup = config.followupFrequencyInHours;
+    followup = config.followupFrequencyInHours,
+    waitTime = config.waitTimeAfterRetriggerInSeconds;
 
 function getLocalDiskSize(cb){
   local.get('/registry', function(e,r,b) { cb(b.disk_size) })
@@ -38,12 +39,15 @@ function main() {
               setTimeout(main, followup*3600000);
             } else {
               console.log("Replication has stalled");
+              clearInterval(checkInterval);
               retriggerReplication();
+              setTimeout(main, waitTime*1000);
             }
           })
         } else {
-          var diff = Math.ceil((currentSize - lastDiskSize) / 1024 / 1024);
-          console.log("Size increased by "+diff+" MB.");
+          var diff = (currentSize - lastDiskSize) / 1024 / 1024;
+          var rate = diff / frequency;
+          console.log("Downloading at ~"+rate+" MB/s");
         }
         lastDiskSize = currentSize;
       })
