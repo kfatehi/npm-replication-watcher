@@ -1,0 +1,11 @@
+{
+  "name": "replication-watcher",
+  "version": "0.0.1",
+  "description": "Recommit replication command to couchdb when it stops",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause"
+}
