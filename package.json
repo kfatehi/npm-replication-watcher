@@ -1,7 +1,7 @@
 {
-  "name": "replication-watcher",
+  "name": "npm-replication-watcher",
   "version": "0.0.1",
-  "description": "Recommit replication command to couchdb when it stops",
+  "description": "Recommit replication command to couchdb when it stalls",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
