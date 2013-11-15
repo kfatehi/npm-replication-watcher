@@ -1,5 +1,5 @@
 var request = require('request-json'),
-    config = require('./config.js'),
+    config = require(__dirname+'/config.js'),
     replicate = config.couchdb.replicate,
     local = request.newClient(config.couchdb.uri),
     remote = request.newClient(replicate["source"]),
@@ -55,4 +55,4 @@ function main() {
   })
 }
 
-main();
+module.exports = main;

@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var watcher = require(__dirname+'/../index.js');
+watcher();

@@ -4,12 +4,15 @@
   "description": "Recommit replication command to couchdb when it stalls",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "./bin/npm-replication-watcher",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
     "request-json":"*"
+  },
+  "bin": {
+    "mocha": "./bin/npm-replication-watcher"
   }
 }
