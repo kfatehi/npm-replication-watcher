@@ -1,5 +1,11 @@
 # npm-replication-watcher
 
+## deprecation notice:
+
+don't bother running a couchdb instance, instead use this project: https://github.com/rlidwka/sinopia 
+
+---
+
 This package provides a binary `npm-replication-watcher` that observes your local couchdb instance
 while it replicates the official npm repository. It reports your transfer rate but if it detects
 a stall (transfer rate is 0 in essence), it will take appropriate action
